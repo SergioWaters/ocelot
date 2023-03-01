@@ -1,0 +1,156 @@
+.main {
+  &__nav {
+    padding: 30px 0;
+
+    & .nav-list {
+      font-size: 16px;
+      line-height: 18px;
+    }
+  }
+  &__advertizing {
+    background-color: $second-color;
+    background-repeat: no-repeat;
+    background-position: 74% 50%, 80% 50%, 90% 50%;
+    background-image: url("../assets/images/SBS-923097.png"),
+      url("../assets/images/Ellipse-1.png"), url("../assets/images/Ellipse.png");
+
+    @media (max-width: 860px) {
+      background-position: 130% 50%, 230% 50%;
+      background-image: url("../assets/images/SBS-923097.png"),
+        url("../assets/images/Ellipse-1.png");
+    }
+    @media (max-width: 720px) {
+      background-image: none;
+    }
+
+    & .advertizing__description {
+      height: 604px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      @media (max-width: 1000px) {
+        height: 500px;
+      }
+      @media (max-width: 720px) {
+        height: 300px;
+      }
+
+      & .description_title {
+        font-size: 48px;
+        line-height: 56px;
+        color: $third-color;
+        @include font-roboto-700;
+      }
+      & .description_text {
+        max-width: 308px;
+        word-break: break-word;
+        margin: 50px 0;
+        font-size: 14px;
+        line-height: 20px;
+        @include font-roboto-400;
+        color: $third-color;
+      }
+    }
+  }
+  &__special {
+    padding: 80px 0;
+    background-color: $first-color;
+
+    & .container {
+      background-image: url("../assets/images/car.png");
+      background-repeat: no-repeat;
+      background-position: top right 40px;
+    }
+
+    &_title {
+      color: #000;
+      font-size: 24px;
+      line-height: 28px;
+      @include font-roboto-700;
+    }
+    & .special__slider {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 40px 0;
+
+      &_item {
+        background-color: $third-color;
+        width: 255px;
+        height: 360px;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        & .image {
+        }
+        & .description {
+          text-align: center;
+          font-size: 16px;
+          line-height: 19px;
+          @include font-roboto-400;
+        }
+        & .price {
+          text-align: center;
+          font-size: 21px;
+          line-height: 24px;
+          @include font-roboto-700;
+        }
+        & .button-dark {
+          min-width: 130px;
+        }
+      }
+    }
+    & .special__offers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      margin: 40px 0;
+
+      &_item {
+        background-color: $second-color;
+        flex: 1;
+        height: 200px;
+        padding: 35px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @media (max-width: 500px) {
+          flex-wrap: wrap;
+          height: unset;
+        }
+
+        & .info-block {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          max-width: 250px;
+
+          & .title {
+            font-size: 18px;
+            line-height: 21px;
+            @include font-roboto-700;
+            color: $third-color;
+          }
+          & .text {
+            color: $third-color;
+            text-align: left;
+            font-size: 14px;
+            line-height: 19px;
+            @include font-roboto-400;
+          }
+        }
+        & .image {
+          height: 140px;
+        }
+      }
+    }
+  }
+}

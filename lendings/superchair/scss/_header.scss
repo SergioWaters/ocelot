@@ -1,0 +1,55 @@
+.header {
+  &__nav {
+    background-color: $first-color;
+    padding: 15px 0;
+  }
+
+  &__about {
+    border-bottom: 1px solid $first-color;
+
+    & .about__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px 0;
+
+      @media (max-width: 600px) {
+        justify-content: center;
+      }
+
+      & .logo {
+        display: flex;
+        align-items: center;
+
+        &_icon {
+          margin-right: 20px;
+        }
+
+        &_text {
+          font-size: 36px;
+          line-height: 42px;
+          @include font-roboto-700;
+          text-transform: uppercase;
+          color: $second-color;
+        }
+      }
+      & .callback {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 40px;
+
+        &_phone {
+          font-size: 16px;
+          line-height: 18px;
+          @include font-roboto-400;
+          color: #000;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.button-light{
+  padding: 10px 30px;
+  background-color: $third-color;
+  border-radius: 30px;
+  border: 1px solid $second-color;
+  color: #000;
+  font-size: 14px;
+  line-height: 16px;
+  @include font-roboto-400;
+}
+
+.button-dark{
+  padding: 10px 30px;
+  background-color: $second-color;
+  border-radius: 30px;
+  border: 1px solid $third-color;
+  color: $third-color;
+  font-size: 14px;
+  line-height: 16px;
+  @include font-roboto-400;
+}

@@ -1,0 +1,19 @@
+.nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include font-roboto-400;
+  color: #000;
+  font-size: 14px;
+  line-height: 16px;
+  gap: 30px;
+  flex-wrap: wrap;
+
+  &__item {
+    list-style: none;
+  }
+  &__link {
+    text-decoration: none;
+    color: #000;
+  }
+}

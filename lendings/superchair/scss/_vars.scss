@@ -1,0 +1,45 @@
+//colors
+
+$first-color: #efefef;
+$second-color: #66c05d;
+$third-color: #ffffff;
+
+$transition: 0.3s;
+
+//fonts
+
+@mixin font-roboto-400 {
+  font-family: 'Roboto';
+  font-weight: 400;
+}
+
+@mixin font-roboto-700 {
+  font-family: 'Roboto';
+  font-weight: 700;
+}
+
+// Animations
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0)
+  }
+
+  80% {
+    transform: scaleY(1.1)
+  }
+
+  100% {
+    transform: scaleY(1)
+  }
+}
+
+@keyframes shrinkUp {
+  0% {
+    transform: scaleY(1)
+  }
+
+  100% {
+    transform: scaleY(0)
+  }
+}
