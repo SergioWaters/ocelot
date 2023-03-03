@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "Inter";
+  font-weight: 300;
+  src: local("Inter Light"),
+    url(../assets/fonts/inter/inter-variable.ttf) format("truetype"),
+    url(../assets/fonts/inter/static/inter-light-300.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 400;
+  src: local("Inter Regular"),
+    url(../assets/fonts/inter/inter-variable.ttf) format("truetype"),
+    url(../assets/fonts/inter/static/inter-regular-400.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 500;
+  src: local("Inter Medium"),
+    url(../assets/fonts/inter/inter-variable.ttf) format("truetype"),
+    url(../assets/fonts/inter/static/inter-medium-500.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 600;
+  src: local("Inter SemiBold"),
+    url(../assets/fonts/inter/inter-variable.ttf) format("truetype"),
+    url(../assets/fonts/inter/static/inter-semibold-600.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Prata";
+  font-weight: 400;
+  src: local("Prata"),
+    url(../assets/fonts/prata/prata-regular-400.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 700;
+  src: local("Roboto, bold"),
+    url(../assets/fonts/roboto/roboto_bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 500;
+  src: local("Roboto, medium"),
+    url(../assets/fonts/roboto/roboto_medium.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 400;
+  src: local("Roboto, regular"),
+    url(../assets/fonts/roboto/roboto_regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 300;
+  src: local("Prata, light"),
+    url(../assets/fonts/roboto/roboto_light.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Playfair";
+  font-weight: 400;
+  src: local("Playfair, regular"),
+    url(../assets/fonts/playfair_display/playfair_display_regular.ttf)
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Playfair";
+  font-weight: 700;
+  src: local("Playfair, bold"),
+    url(../assets/fonts/playfair_display/playfair_display_bold.ttf)
+      format("truetype");
+}

@@ -1,0 +1,87 @@
+//colors
+
+$primarycolor: #303030;
+$transition: 0.3s;
+
+//fonts
+
+@mixin font-prata-400 {
+  font-family: "Prata", serif;
+  font-weight: 400;
+}
+
+@mixin font-inter-300 {
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+}
+
+@mixin font-inter-400 {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+@mixin font-inter-500 {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+}
+
+@mixin font-inter-600 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+}
+
+@mixin font-roboto-700 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+@mixin font-roboto-500 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
+
+@mixin font-roboto-400 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+@mixin font-roboto-300 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+@mixin font-pfair-400 {
+  font-family: "Playfair", sans-serif;
+  font-weight: 400;
+}
+
+@mixin font-pfair-700 {
+  font-family: "Playfair", sans-serif;
+  font-weight: 700;
+}
+
+// Animation
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+
+  80% {
+    transform: scaleY(1.1);
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes shrinkUp {
+  0% {
+    transform: scaleY(1);
+  }
+
+  100% {
+    transform: scaleY(0);
+  }
+}

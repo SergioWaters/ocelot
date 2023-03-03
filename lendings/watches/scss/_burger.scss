@@ -1,0 +1,275 @@
+$barheight: 4px;
+$barcolor: #303030;
+
+@mixin transition($duration) {
+  -webkit-transition: all $duration ease-in-out;
+  -moz-transition: all $duration ease-in-out;
+  -o-transition: all $duration ease-in-out;
+  transition: all $duration ease-in-out;
+}
+
+@mixin bgGradient($direction, $col1, $col2) {
+  background: -webkit-linear-gradient($direction, $col2 50%, $col1 50%);
+  background: -o-linear-gradient($direction, $col1 50%, $col2 50%);
+  background: -moz-linear-gradient($direction, $col1 50%, $col2 50%);
+  background: linear-gradient(to $direction, $col1 50%, $col2 50%);
+}
+
+@mixin rotate($deg) {
+  -webkit-transform: rotate($deg);
+  -moz-transform: rotate($deg);
+  -o-transform: rotate($deg);
+  transform: rotate($deg);
+}
+
+.flex {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flexmiddle {
+  @extend .flex;
+  align-items: flex-center;
+}
+
+.burgerbtn {
+  width: 45px;
+  height: 45px;
+  background: none;
+  border-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.bars {
+  @extend .flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.bar {
+  width: 100%;
+  height: $barheight;
+  background-color: $barcolor;
+
+  &:not(:first-child) {
+    margin-top: $barheight;
+  }
+}
+
+//Shoot
+.shoot {
+  .bar {
+    @include transition(.3s);
+
+    &:nth-child(3) {
+      margin-top: $barheight*-1;
+    }
+  }
+}
+
+.shoot.open {
+  .bar {
+    &:first-child {
+      margin-left: 300%;
+    }
+
+    &:last-child {
+      margin-left: -300%;
+    }
+
+    &:nth-child(2) {
+      @include rotate(45deg);
+    }
+
+    &:nth-child(3) {
+      @include rotate(-45deg);
+    }
+  }
+}
+
+//Spin
+.spin {
+  .bar {
+
+    &:first-child,
+    &:last-child {
+      @include transition(.3s);
+      transition-delay: .7s;
+    }
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      @include transition(1s);
+    }
+
+    &:nth-child(3) {
+      margin-top: $barheight*-1;
+    }
+  }
+}
+
+.spin.open {
+  .bar {
+    &:first-child {
+      transition-delay: 0s;
+      margin-left: 300%;
+    }
+
+    &:last-child {
+      transition-delay: 0s;
+      margin-left: -300%;
+    }
+
+    &:nth-child(2) {
+      @include rotate(675deg);
+    }
+
+    &:nth-child(3) {
+      @include rotate(765deg);
+    }
+  }
+}
+
+//Split
+.split {
+  .bar {
+
+    &:nth-child(1),
+    &:nth-child(3),
+    &:nth-child(5) {
+      background-color: transparent;
+      @include bgGradient(right, $barcolor, transparent);
+    }
+
+    &:nth-child(2),
+    &:nth-child(4),
+    &:nth-child(6) {
+      margin-top: $barheight*-1;
+      background-color: transparent;
+      @include bgGradient(left, $barcolor, transparent);
+    }
+
+    &:nth-child(3),
+    &:nth-child(4) {
+      @include transition (.3s);
+    }
+
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(5),
+    &:nth-child(6) {
+      @include transition (.3s);
+    }
+  }
+}
+
+.split.open {
+  .bar {
+    &:nth-child(3) {
+      margin-left: -300%;
+    }
+
+    &:nth-child(4) {
+      margin-left: 300%;
+    }
+
+    &:first-child {
+      margin-top: 50%;
+      background-color: transparent;
+      background: -webkit-linear-gradient(left, black 50%, transparent 50%);
+      background: -o-linear-gradient(right, black 50%, transparent 50%);
+      background: -moz-linear-gradient(right, black 50%, transparent 50%);
+      background: linear-gradient(to right, black 55%, transparent 50%);
+      @include rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      margin-bottom: -50%;
+      @include rotate(-45deg);
+    }
+
+    &:nth-child(5) {
+      @include rotate(-45deg);
+    }
+
+    &:last-child {
+      margin-bottom: 50%;
+      @include rotate(45deg);
+    }
+  }
+}
+
+//Build
+.build {
+  .bar {
+
+    &:first-child,
+    &:last-child {
+      @include transition(.3s);
+      transition-delay: .3s;
+    }
+
+    &:nth-child(2) {
+      @include transition(.3s);
+    }
+
+    &:nth-child(3),
+    &:nth-child(4),
+    &:nth-child(5) {
+      @include transition(.3s);
+      background-color: transparent;
+      @include bgGradient(right, transparent, $barcolor);
+    }
+
+    &:nth-child(3),
+    &:nth-child(4),
+    &:nth-child(5) {
+      margin-top: $barheight*-1;
+    }
+  }
+}
+
+.build.open {
+  .bar {
+
+    &:first-child,
+    &:last-child {
+      transition-delay: 0s;
+      opacity: 0;
+    }
+
+    &:nth-child(2) {
+      @include bgGradient(right, transparent, $barcolor);
+    }
+
+    &:nth-child(2),
+    &:nth-child(3),
+    &:nth-child(4),
+    &:nth-child(5) {
+      transition-delay: .3s;
+    }
+
+    &:nth-child(2) {
+      @include rotate(45deg);
+    }
+
+    &:nth-child(3) {
+      @include rotate(135deg);
+    }
+
+    &:nth-child(4) {
+      @include rotate(225deg);
+    }
+
+    &:nth-child(5) {
+      @include rotate(315deg);
+    }
+  }
+}

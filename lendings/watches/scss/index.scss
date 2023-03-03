@@ -1,0 +1,36 @@
+@import "./normalize";
+@import "./fonts";
+@import "./burger";
+@import "./vars";
+@import "./ui-kit";
+@import "./header";
+@import "./main-promo";
+@import "./main-sale";
+@import "./main-daily";
+@import "./main-news";
+@import "./footer";
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  background-color: #fff;
+  color: $primarycolor;
+  font-size: 14px;
+  @include font-inter-400;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+  @media (max-width: 1210px) {
+    max-width: 90%;
+  }
+}

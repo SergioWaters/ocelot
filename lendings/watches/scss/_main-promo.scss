@@ -1,0 +1,161 @@
+.main_promo {
+  background-color: #fdfdfb;
+
+  &__slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+    gap: 40px;
+    overflow: hidden;
+    margin-bottom: 60px;
+
+    & .infoblock {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 65px;
+      flex: 1px;
+      z-index: 1;
+      word-wrap: break-word;
+      min-width: 300px;
+
+      & h1 {
+        @include font-pfair-400;
+        font-size: 45px;
+        line-height: 60px;
+        position: relative;
+        color: #1b1a17;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: -65px;
+          display: block;
+          height: 1px;
+          width: 50px;
+          background-color: #8b8371;
+        }
+      }
+
+      & h3 {
+        @include font-pfair-400;
+        font-size: 30px;
+        line-height: 40px;
+        color: #1b1a17;
+      }
+
+      & p {
+        @include font-roboto-300;
+        color: #1b1a17d1;
+        font-size: 14px;
+        line-height: 21px;
+        max-width: 260px;
+        margin: 40px 0;
+      }
+
+      & .button-dark {
+        @include font-roboto-500;
+        font-size: 12px;
+        line-height: 14px;
+        max-width: 260px;
+        word-wrap: break-word;
+        color: #fff;
+      }
+    }
+
+    & .imageblock {
+      max-height: 800px;
+      max-width: 570px;
+      flex: 1;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      background-color: transparent;
+
+      & img {
+        object-fit: contain;
+        z-index: 1;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        height: 120%;
+        width: 180%;
+        border-radius: 50%;
+        top: -10%;
+        background: linear-gradient(180deg, #eae3d400 0%, #eae3d4 100%);
+        @media (max-width: 900px) {
+          width: 100%;
+        }
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        height: 120%;
+        width: 100%;
+        top: -10%;
+        left: 50%;
+        background-color: #fdfdfb;
+      }
+
+      &_uppertext {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        top: 140px;
+        z-index: 1;
+        @include font-prata-400;
+        font-size: 16px;
+        line-height: 21px;
+        color: #1b1a17;
+
+        &::after {
+          content: "";
+          position: absolute;
+          right: -65px;
+          display: block;
+          height: 1px;
+          width: 50px;
+          background-color: #8b8371;
+        }
+        @media (max-width: 565px) {
+          top: 100%;
+          left: 38%;
+        }
+      }
+      &_lowertext {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        bottom: 140px;
+        right: 0;
+        z-index: 1;
+        @include font-prata-400;
+        font-size: 16px;
+        line-height: 21px;
+        color: #1b1a17;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: -65px;
+          display: block;
+          height: 1px;
+          width: 50px;
+          background-color: #8b8371;
+        }
+        @media (max-width: 565px) {
+          bottom: -30px;
+          right: 29%;
+        }
+      }
+      @media (max-width: 950px) {
+        max-height: 500px;
+      }
+    }
+  }
+}

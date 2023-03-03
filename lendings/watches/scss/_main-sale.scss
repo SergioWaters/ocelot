@@ -1,0 +1,125 @@
+.main_sale {
+  & h1 {
+    @include font-pfair-400;
+    text-align: center;
+    color: #1b1a17;
+    font-size: 32px;
+    line-height: 42px;
+    margin-bottom: 50px;
+  }
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    & .link {
+      text-decoration: none;
+      color: inherit;
+      position: absolute;
+      right: 0;
+      top: -50px;
+      @include font-roboto-500;
+      color: #444240;
+      font-size: 16px;
+      line-height: 19px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        display: block;
+        height: 1px;
+        width: 100%;
+        background-color: #8b8371;
+      }
+    }
+  }
+
+  &__slider {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 35px;
+
+    & .card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 370px;
+      background-color: #fdfdfb;
+      padding: 40px;
+
+      &_title {
+        color: inherit;
+        text-transform: uppercase;
+        @include font-pfair-700;
+        font-size: 14px;
+        line-height: 24px;
+        color: #1b1a17d1;
+      }
+      &_price {
+        color: inherit;
+        @include font-prata-400;
+        font-size: 12px;
+        line-height: 16px;
+        color: #1b1a17d1;
+      }
+      &_image {
+        position: relative;
+        display: block;
+        border-radius: 50%;
+        background-color: #fdfdfb;
+        z-index: 1;
+
+        &::before {
+          content: "";
+          border-radius: 50%;
+          position: absolute;
+          background: linear-gradient(90deg, #e2d0c400, #e9e3d4);
+          right: -2px;
+          bottom: -2px;
+          top: -2px;
+          left: -2px;
+          z-index: -1;
+        }
+        & img {
+          height: 313px;
+          border-radius: 50%;
+          background-color: #fdfdfb;
+          @media (max-width: 390px) {
+            height: 260px;
+          }
+        }
+      }
+      &_link {
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        padding: 0 0 0 30px;
+        margin: 20px 0 0 0;
+        @include font-pfair-400;
+        font-size: 16px;
+        line-height: 21px;
+        color: #1b1a17;
+
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: -20px;
+          height: 1px;
+          width: 30px;
+          background-color: #8b8371;
+        }
+      }
+      @media (max-width: 390px) {
+        padding: 10px;
+        max-width: 300px;
+      }
+    }
+  }
+}
