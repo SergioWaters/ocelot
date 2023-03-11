@@ -24,6 +24,9 @@ mainEl.classList.add('container', 'wrapper');
 const formEl = document.createElement('form');
 formEl.classList.add('search-form');
 formEl.addEventListener('submit', handleFormSubmit);
+formEl.addEventListener('keydown', (e) => {
+  if(e.key === 'enter') handleFormSubmit(e)
+})
 formEl.addEventListener('input', handleChange);
 mainEl.appendChild(formEl);
 
@@ -46,13 +49,14 @@ errorEl.classList.add('form-error');
 formEl.appendChild(errorEl);
 
 // create results list
-const list = document.createElement('ul');
-list.classList.add('results-list');
-mainEl.appendChild(list)
+const listEl = document.createElement('ul');
+listEl.classList.add('results-list');
+mainEl.appendChild(listEl)
 
 // handle form submit
 async function handleFormSubmit(e){
   e.preventDefault(); //prevent reload
+  renderError('Connecting...')
   const formData = Object.fromEntries(new FormData(e.target));
   if(!formData.searchline) return renderError('Write a search line first...')
   await fetch(`https://api.github.com/search/repositories?q=${formData.searchline}&sort=stars&per_page=10`)
@@ -62,21 +66,20 @@ async function handleFormSubmit(e){
 }
 
 function renderResults(results){
+  renderError('');
   if(!results.items.length) return renderError('Nothing is found...');
-  const inner = results.items.reduce((acc, item) => {
-    if (typeof acc !== 'string') return createResultMarkup(acc) + createResultMarkup(item);
-    return acc + createResultMarkup(item)
+  results.items.forEach(item => {
+    listEl.insertAdjacentHTML('afterbegin', createResultMarkup(item))
   });
-  list.innerHTML = inner;
 }
 
 function createResultMarkup(res){
   return `
-  <li class="list__item">
-    <a href="${res?.html_url}" class="item_link" target="_blanc" rel="noreferrer">${res?.name}</a>
-    <p class="item_language">language: ${res.language ?? 'is unknown'}</p>
-    <p class="item_description">${res?.description}</p>
-  </li>`
+          <li class="list__item">
+            <a href="${res?.html_url}" class="item_link" target="_blanc" rel="noreferrer">${res?.name}</a>
+            <p class="item_language">language: ${res.language ?? 'is unknown'}</p>
+            <p class="item_description">${res.description ?? 'no description'}</p>
+          </li>`
 }
 
 function renderError(error){

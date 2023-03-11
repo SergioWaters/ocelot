@@ -1,0 +1,150 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background: linear-gradient(180deg, #1178ee89 0%, #e641f89a 100%);
+}
+
+input{
+  outline: transparent;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container{
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.send-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  padding: 20px;
+  border-radius: 20px 20px 0 0;
+  background-color: #ffffff7a;
+  box-shadow: 0px 5px 5px #07070772;
+  width: 110%;
+}
+
+.send-form div{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex: 1;
+  width: 90%;
+  gap: 20px;
+}
+
+.form-error{
+  position: absolute;
+  left: center;
+  top: 0;
+}
+
+.date-input,
+.text-input,
+.name-input{
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #1179ee;
+  min-width: 150px;
+  padding: 5px 10px;
+}
+
+.text-input{
+  flex: 1;
+}
+
+.date-input::placeholder,
+.text-input::placeholder,
+.name-input::placeholder{
+  color: #b311ee96;
+}
+
+.send-button{
+  min-width: 100px;
+  min-height: 20px;
+  padding: 5px 10px;
+  border: none;
+  background: linear-gradient(180deg, #1178ee89 0%, #e641f89a 100%);
+  color: #fff;
+  border-radius: 10px;
+}
+
+.comments-list{
+  flex: 1;
+  overflow: hidden;
+  overflow-y: scroll;
+  list-style: none;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 30px;
+  width: 500px;
+  padding: 40px 40px;
+}
+
+.list__item{
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  border-radius: 15px;
+  color: #434343;
+  position: relative;
+  background-color: #ffffff7a;
+  box-shadow: 0px 5px 5px #07070772;
+}
+
+.item_author{
+  text-align: left;
+}
+
+.item_text{
+ text-align: center;
+}
+
+.item_date{
+  text-align: right;
+}
+
+.item_delete{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.item_like{
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.item_delete svg,
+.item_like svg{
+  fill: inherit;
+  stroke: inherit;
+  pointer-events: none;
+}
+
+.liked{
+  fill: red;
+  stroke: red;
+}
