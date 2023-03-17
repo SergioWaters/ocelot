@@ -66,6 +66,7 @@ async function handleFormSubmit(e){
 }
 
 function renderResults(results){
+  listEl.innerHTML = '';
   renderError('');
   if(!results.items.length) return renderError('Nothing is found...');
   results.items.forEach(item => {
