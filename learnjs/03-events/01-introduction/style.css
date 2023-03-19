@@ -1,0 +1,80 @@
+*{
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+.task{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#field {
+  width: 200px;
+  height: 150px;
+  position: relative;
+  background-color: green;
+
+}
+
+#ball {
+  position: absolute;
+  left: 0; 
+  top: 0;
+  transition: 1s all; 
+  background-color: red;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.pane{
+  position: relative;
+  max-width: 500px;
+  margin: 20px;
+}
+
+.remove-button{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.carousel {
+  position: relative;
+}
+.arrow {
+  position: absolute;
+  top: 49%;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+.prev {
+  left: -10px;
+}
+.next {
+  right: -10px;
+}
+.gallery {
+  overflow: hidden;
+  width: 390px;  
+}
+.list {
+  list-style: none;
+  font-size: 0;
+  height: 130px;
+  transition: margin-left 250ms;
+}
+.list_item {
+  display: inline-block;
+
+}
+.list_item img{
+  display: block;
+
+}
+
+
