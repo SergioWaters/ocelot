@@ -1,5 +1,6 @@
 import styles from "./style.module.scss";
 import { Button, Input } from "../../ui";
+import { CatItemComp, SortComp } from "./";
 
 export const CatalogueComp = () => {
   const categoriesArr: Array<string> = [
@@ -15,10 +16,32 @@ export const CatalogueComp = () => {
     "Гигиена полости рта",
     "Бумажная продукция",
   ];
+  const sortArr = ["Подешевле", "Подороже", "Алфавит А-Я", "Алфавит Я-А"];
+  const handleEmit = (str: string) => {
+    console.log(str);
+    return str;
+  };
+  const productsArr = [
+    {
+      info: "средство для мытья посуды Crystal",
+      measureUnits: "ml",
+      unitsCount: 450,
+      art: "4604049097548",
+      manufacturer: "Нэфис",
+      brand: "AOS",
+      images: ["./src/assets/aoc.png"],
+      price: 48.76,
+      pack: 0,
+      categories: ["средство для мытья посуды"],
+    },
+  ];
 
   return (
     <div className={styles.catalogue + " container"}>
-      <h1>Косметика и гигиена</h1>
+      <div className={styles.heading}>
+        <h1>Косметика и гигиена</h1>
+        <SortComp cbFn={handleEmit} optionsArr={sortArr} />
+      </div>
       <ul className={styles.categories}>
         {categoriesArr.map((c) => (
           <li className={styles.categories__item} key={c}>
@@ -32,7 +55,7 @@ export const CatalogueComp = () => {
           <div className={styles.filter}>
             <h4>ПОДБОР ПО ПАРАМЕТРАМ</h4>
             <div className={styles.price}>
-              <h5>Цена </h5>
+              <h5>Цена</h5>
               <div className={styles.price__inner}>
                 <input type="text" placeholder="0" />
                 -
@@ -81,7 +104,11 @@ export const CatalogueComp = () => {
             ))}
           </ul>
         </div>
-        <div className={styles.catalogue__list}></div>
+        <div className={styles.catalogue__list}>
+          {productsArr.map((p) => (
+            <CatItemComp product={p} key={p.art} />
+          ))}
+        </div>
       </div>
     </div>
   );
