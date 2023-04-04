@@ -1,6 +1,7 @@
 import styles from "./style.module.scss";
 import { Button } from "../../../ui";
 import { FC, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface props {
   product: product;
@@ -20,9 +21,9 @@ export interface product {
 }
 
 export const CatItemComp: FC<props> = ({ product }) => {
-  const [sku, setSku] = useState(product);
+  const [sku] = useState(product);
   return (
-    <div className={styles.card}>
+    <article className={styles.card}>
       <div className={styles.image}>
         <img src={sku.images[0]} alt={sku.info} />
       </div>
@@ -77,10 +78,12 @@ export const CatItemComp: FC<props> = ({ product }) => {
           )}
         </li>
         <li className={styles.description__item}>
-          <p className={styles.semibold}>
-            <span className={styles.bold}>{sku.brand}</span>
-            {" " + sku.info}
-          </p>
+          <Link to={"/product/" + sku.art}>
+            <h3 className={styles.semibold}>
+              <span className={styles.bold}>{sku.brand}</span>
+              {" " + sku.info}
+            </h3>
+          </Link>
         </li>
         <li className={styles.description__item}>
           <p>Штрихкод:</p>
@@ -103,6 +106,6 @@ export const CatItemComp: FC<props> = ({ product }) => {
           />
         </li>
       </ul>
-    </div>
+    </article>
   );
 };

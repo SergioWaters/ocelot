@@ -175,6 +175,11 @@
       display: flex;
       justify-content: center;
       align-items: end;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.5;
+      }
 
       &_box {
         display: flex;

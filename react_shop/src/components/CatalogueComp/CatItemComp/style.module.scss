@@ -42,6 +42,11 @@
         margin: 5px 0 10px 0;
         font-size: 16px;
         line-height: 21px;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration-line: underline;
+        }
       }
       &:last-child {
         margin-top: 10px;

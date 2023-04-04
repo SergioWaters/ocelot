@@ -17,6 +17,12 @@ export const CatalogueComp = () => {
     "Бумажная продукция",
   ];
   const sortArr = ["Подешевле", "Подороже", "Алфавит А-Я", "Алфавит Я-А"];
+  const manArr = [
+    "Производитель",
+    "Производитель",
+    "Производитель",
+    "Производитель",
+  ];
   const handleEmit = (str: string) => {
     console.log(str);
     return str;
@@ -69,26 +75,12 @@ export const CatalogueComp = () => {
                 iconUrl="./src/assets/icons/search.svg"
               />
               <div className={styles.checkboxes}>
-                <label className={styles.label}>
-                  <input type="checkbox" className={styles.checkbox} />
-                  Manufacturer
-                </label>
-                <label className={styles.label}>
-                  <input type="checkbox" className={styles.checkbox} />
-                  Manufacturer
-                </label>
-                <label className={styles.label}>
-                  <input type="checkbox" className={styles.checkbox} />
-                  Manufacturer
-                </label>
-                <label className={styles.label}>
-                  <input type="checkbox" className={styles.checkbox} />
-                  Manufacturer
-                </label>
-                <label className={styles.label}>
-                  <input type="checkbox" className={styles.checkbox} />
-                  Manufacturer
-                </label>
+                {manArr.map((m, indx) => (
+                  <label className={styles.label} key={m + indx}>
+                    <input type="checkbox" className={styles.checkbox} />
+                    {m}
+                  </label>
+                ))}
               </div>
             </div>
             <div className={styles.filter__btns}>
