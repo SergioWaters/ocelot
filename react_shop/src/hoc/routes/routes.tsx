@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { CartPage, CataloguePage, ProductPage, HomePage } from "../pages";
-import { ErrorComp } from "../components/ErrorComp/error";
+import { CartPage, CataloguePage, ProductPage, HomePage } from "../../pages";
+import { ErrorComp } from "../../components/ErrorComp/error";
 
 export const RoutesComp = () => {
   return (

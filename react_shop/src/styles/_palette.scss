@@ -4,6 +4,8 @@ $col-blue-2: linear-gradient(180deg, #6cd0e9 14.1%, #6cade9 57.69%);
 $col-blue-3: linear-gradient(90deg, #39acfd 0%, #5eb9ff 97.25%);
 $col-yellow-1: #ffc85e;
 $col-yellow-2: #f3a50d;
+$border-blue-dash: 1px dashed rgba(63, 78, 101, 0.3);
+$border-blue-solid: 1px solid rgba(63, 78, 101, 0.3);
 
 @keyframes growDown {
   0% {

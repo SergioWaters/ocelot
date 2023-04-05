@@ -1,12 +1,17 @@
+@import "./palette";
 #root {
-}
+  .App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+  .main {
+    flex: 1;
+  }
 
-.main {
-  flex: 1;
+  *:focus,
+  *:focus-visible {
+    outline: $border-blue-dash;
+  }
 }

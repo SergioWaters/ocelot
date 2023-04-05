@@ -12,8 +12,8 @@
   color: $col-blue-1;
 
   & .wrapper {
-    border-top: 1px solid $col-blue-1;
-    border-bottom: 1px solid $col-blue-1;
+    border-top: $border-blue-solid;
+    border-bottom: $border-blue-solid;
   }
 
   &__upper {

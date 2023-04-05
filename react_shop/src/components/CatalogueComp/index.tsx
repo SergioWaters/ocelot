@@ -1,3 +1,3 @@
 export * from "./catalogue";
-export * from "./CatItemComp";
+export * from "./CatalItemComp";
 export * from "./SortComp";

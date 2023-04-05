@@ -24,7 +24,11 @@
   }
   &:focus,
   &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+    outline: transparent;
+  }
+
+  &:active {
+    outline: 2px solid $col-yellow-2;
   }
 
   &.rounded {

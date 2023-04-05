@@ -1,6 +1,6 @@
 import { FooterComp, HeaderComp } from "./components";
 import { BrowserRouter } from "react-router-dom";
-import { RoutesComp } from "./routes";
+import { RoutesComp } from "./hoc/routes";
 import styles from "./styles/App.module.scss";
 
 function App() {
