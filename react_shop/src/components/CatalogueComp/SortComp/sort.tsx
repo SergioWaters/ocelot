@@ -1,32 +1,42 @@
-import { FC, useRef, useState } from "react";
+import { FC, KeyboardEventHandler, useRef, useState, MouseEvent } from "react";
 import styles from "./style.module.scss";
 
 interface sortProps {
   optionsArr: Array<string>;
-  cbFn: (arg0: string) => string;
+  cbFn: (arg0: string) => void;
 }
 
 export const SortComp: FC<sortProps> = ({ optionsArr, cbFn }) => {
-  const [sortBy, setSortBy] = useState(optionsArr[0]);
-  const [arr, setArr] = useState(optionsArr);
+  const [sortBy, setSortBy] = useState("Выбрать");
+  const [arr] = useState(optionsArr);
   const list = useRef(null);
   const [isShownList, setIsShownList] = useState(false);
 
-  // const arr = ["Подешевле", "Подороже", "Алфавит А-Я", "Алфавит Я-А"];
-  // const arr = ["Цена", "Название"];
-
-  const handleOptionClick = (e: React.MouseEvent, i: string) => {
+  const handleOptionClick = (e: MouseEvent, i: string) => {
     setSortBy(i);
     setIsShownList(!isShownList);
     cbFn(i);
   };
 
+  const keyboardHandle: KeyboardEventHandler<HTMLDivElement> = (e) => {
+    switch (e.code) {
+      case "Escape":
+        setIsShownList(false);
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
-    <div className={styles.sort}>
+    <div className={styles.sort} onKeyDown={keyboardHandle}>
       <span className={styles.sort__heading}>Сортировка:</span>
       <div
         className={styles.list__wrapper}
-        onClick={() => setIsShownList(!isShownList)}>
+        onClick={() => setIsShownList(!isShownList)}
+        onBlur={() => setIsShownList(false)}
+        tabIndex={0}>
         <span className={styles.sort__selected}>
           {sortBy}
           <svg

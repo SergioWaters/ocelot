@@ -22,10 +22,6 @@
   &:hover {
     border-color: $col-yellow-2;
   }
-  &:focus,
-  &:focus-visible {
-    outline: transparent;
-  }
 
   &:active {
     outline: 2px solid $col-yellow-2;

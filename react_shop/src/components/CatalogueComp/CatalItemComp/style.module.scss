@@ -22,6 +22,7 @@
     align-items: center;
     justify-content: center;
     height: 200px;
+    overflow: hidden;
 
     & img {
       object-fit: contain;
@@ -40,9 +41,12 @@
 
       &:nth-child(2) {
         margin: 5px 0 10px 0;
+        height: 42px;
         font-size: 16px;
         line-height: 21px;
         cursor: pointer;
+        align-items: start;
+        overflow: hidden;
 
         &:hover {
           text-decoration-line: underline;

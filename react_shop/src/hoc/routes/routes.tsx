@@ -1,19 +1,24 @@
 import { Routes, Route } from "react-router-dom";
-import { CartPage, CataloguePage, ProductPage, HomePage } from "../../pages";
-import { ErrorComp } from "../../components/ErrorComp/error";
+import {
+  CartPage,
+  CataloguePage,
+  ProductPage,
+  HomePage,
+  ErrorPage,
+  TasksPage,
+  AdminPage,
+} from "../../pages";
 
-export const RoutesComp = () => {
+export const RoutesHOC = () => {
   return (
     <Routes>
+      <Route path="/task" element={<TasksPage />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/catalogue" element={<CataloguePage />} />
-      <Route path="/admin" element={<CataloguePage />} />
+      <Route path="/admin" element={<AdminPage />} />
       <Route path="/" element={<HomePage />} />
-      <Route
-        path="*"
-        element={<ErrorComp msg={"This Page does not exist"} />}
-      />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 };

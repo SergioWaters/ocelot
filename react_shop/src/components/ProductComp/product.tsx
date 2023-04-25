@@ -1,29 +1,18 @@
 import styles from "./style.module.scss";
 import { Button } from "../../ui";
 import { FC, useState } from "react";
+import { CartSku } from "../../types";
+import { CART_ADD, CART_DEL, CART_REM, CART_SET_QUANTITY } from "../../store";
 
 interface props {
-  product: product;
+  sku: CartSku | null;
+  emit: (action: string, value: number) => void;
 }
 
-interface product {
-  info: string;
-  measureUnits: string;
-  unitsCount: number;
-  art: string;
-  manufacturer: string;
-  brand: string;
-  images: Array<string>;
-  price: number;
-  pack: number;
-  categories: Array<string>;
-}
-
-export const ProductComp: FC<props> = ({ product }) => {
-  const [sku, setSku] = useState(product);
+export const ProductComp: FC<props> = ({ sku, emit }) => {
   const [isShownChar, setIsShownChar] = useState(false);
   const [isShownInfo, setIsShownInfo] = useState(false);
-  const [isAvailable, setIsAvailable] = useState(true);
+  const [counter, setCounter] = useState<number>(sku?.quantity || 0);
 
   const single = (
     <>
@@ -45,8 +34,8 @@ export const ProductComp: FC<props> = ({ product }) => {
           </clipPath>
         </defs>
       </svg>
-      <span>{sku.unitsCount}</span>
-      <span>{sku.measureUnits}</span>
+      <span>{sku?.unitsCount}</span>
+      <span>{sku?.measureUnits}</span>
     </>
   );
   const pack = (
@@ -69,18 +58,18 @@ export const ProductComp: FC<props> = ({ product }) => {
           </clipPath>
         </defs>
       </svg>
-      <span>{sku.pack + "X" + sku.unitsCount}</span>
-      <span>{sku.measureUnits}</span>
+      <span>{sku?.pack + "X" + sku?.unitsCount}</span>
+      <span>{sku?.measureUnits}</span>
     </>
   );
 
-  return (
+  return sku ? (
     <div className={styles.card}>
       <div className={styles.image}>
         <img src={sku.images[0]} alt={sku.info} />
       </div>
       <div className={styles.description}>
-        {!!isAvailable ? (
+        {!!sku.stock ? (
           <span className={styles.semibold} style={{ color: "#1FD85D" }}>
             В наличии
           </span>
@@ -99,14 +88,23 @@ export const ProductComp: FC<props> = ({ product }) => {
             {sku.price}&nbsp;₸
           </span>
           <div className={styles.quantity}>
-            <button>-</button>
-            <input type="text" defaultValue={1} />
-            <button>+</button>
+            <button
+              datatype={CART_DEL}
+              onClick={() => setCounter(counter - 1 || 1)}>
+              -
+            </button>
+            <input
+              type="text"
+              value={counter}
+              onChange={(e) => setCounter(+e.target.value)}
+            />
+            <button onClick={() => setCounter(counter + 1)}>+</button>
           </div>
           <Button
             text="В&nbsp;корзину"
             iconUrl="/src/assets/icons/cart_white.svg"
             className={styles.toCart_btn}
+            onClick={() => emit(CART_SET_QUANTITY, counter)}
           />
         </div>
         <div className={styles.share}>
@@ -177,16 +175,7 @@ export const ProductComp: FC<props> = ({ product }) => {
                 />
               </svg>
             </h3>
-            {isShownChar && (
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                interdum ut justo, vestibulum sagittis iaculis iaculis. Quis
-                mattis vulputate feugiat massa vestibulum duis. Faucibus
-                consectetur aliquet sed pellentesque consequat consectetur
-                congue mauris venenatis. Nunc elit, dignissim sed nulla
-                ullamcorper enim, malesuada.
-              </p>
-            )}
+            {isShownChar && <p>{sku.description}</p>}
           </div>
           <div>
             <h3
@@ -233,21 +222,29 @@ export const ProductComp: FC<props> = ({ product }) => {
                 </li>
                 <li className={styles.description__item}>
                   <p>Вес:</p>
-                  <span className={styles.semibold}>{sku.art}</span>
+                  <span className={styles.semibold}>
+                    {sku.unitsCount}&nbsp;{sku.measureUnits}
+                  </span>
                 </li>
                 <li className={styles.description__item}>
                   <p>Объем:</p>
-                  <span className={styles.semibold}>{sku.art}</span>
+                  <span className={styles.semibold}>
+                    {sku.unitsCount}&nbsp;{sku.measureUnits}
+                  </span>
                 </li>
                 <li className={styles.description__item}>
                   <p>Кол-во в коробке:</p>
-                  <span className={styles.semibold}>{sku.art}</span>
+                  <span className={styles.semibold}>{sku.pack}</span>
                 </li>
               </ul>
             )}
           </div>
         </div>
       </div>
+    </div>
+  ) : (
+    <div className={styles.card}>
+      <h2>This product is unavailable</h2>
     </div>
   );
 };

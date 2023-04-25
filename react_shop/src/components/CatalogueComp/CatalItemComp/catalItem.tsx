@@ -1,32 +1,20 @@
 import styles from "./style.module.scss";
 import { Button } from "../../../ui";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
+import { Sku } from "../../../types";
 
 interface props {
-  product: product;
+  sku: Sku;
+  emit: (arg0: string) => void;
 }
 
-export interface product {
-  info: string;
-  measureUnits: string;
-  unitsCount: number;
-  art: string;
-  manufacturer: string;
-  brand: string;
-  images: Array<string>;
-  price: number;
-  pack: number;
-  categories: Array<string>;
-}
-
-export const CatItemComp: FC<props> = ({ product }) => {
-  const [sku] = useState(product);
+export const CatItemComp: FC<props> = ({ sku, emit }) => {
   return (
     <article className={styles.card}>
-      <div className={styles.image}>
-        <img src={sku.images[0]} alt={sku.info} />
-      </div>
+      <picture className={styles.image}>
+        <img src={sku.images[0]} alt={sku.info} width={200} height={200} />
+      </picture>
       <ul className={styles.description}>
         <li className={styles.description__item}>
           {!sku.pack ? (
@@ -103,6 +91,7 @@ export const CatItemComp: FC<props> = ({ product }) => {
             text="В&nbsp;КОРЗИНУ"
             iconUrl="./src/assets/icons/cart_white.svg"
             className={styles.toCart_btn}
+            onClick={(e) => emit(sku.art)}
           />
         </li>
       </ul>

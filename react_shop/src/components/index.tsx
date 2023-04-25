@@ -5,3 +5,5 @@ export * from "./ErrorComp";
 export * from "./BreadCrumbs";
 export * from "./ProductComp";
 export * from "./CartComp";
+export * from "./ModalComp";
+export * from "./AdminComp";

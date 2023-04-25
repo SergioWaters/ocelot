@@ -105,6 +105,30 @@
       justify-content: center;
       gap: 15px;
 
+      &__img {
+        height: 92px;
+        width: 70px;
+        border-radius: 0 0 50% 50%;
+        position: relative;
+
+        & img {
+          object-fit: cover;
+          object-position: 0 0;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 30px;
+          right: 6px;
+          width: 8px;
+          height: 8px;
+          background-color: #1fd85d;
+          border: 2px solid #f0f6fa;
+          border-radius: 50%;
+        }
+      }
+
       & .info {
         display: flex;
         flex-direction: column;
@@ -115,9 +139,6 @@
         & a {
           text-decoration: none;
           color: $col-blue-1;
-        }
-
-        .info__item {
         }
 
         .info__item {

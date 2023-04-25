@@ -1,34 +1,37 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import { LayoutHOC } from "../../hoc";
 import { BreadCrumbs, ProductComp } from "../../components";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { IGlobalStore, CartSku } from "../../types";
+import { useDispatch } from "react-redux";
 
 export const ProductPage: FC = () => {
-  const testProd = {
-    info: "средство для мытья посуды Crystal",
-    measureUnits: "ml",
-    unitsCount: 450,
-    art: "4604049097548",
-    manufacturer: "Нэфис",
-    brand: "AOS",
-    images: ["/src/assets/aoc.png"],
-    price: 48.76,
-    pack: 0,
-    categories: ["средство для мытья посуды"],
-  };
   const { productId } = useParams();
+  const { catalogue } = useSelector((s: IGlobalStore) => s.catalogue);
+  const { cart, total } = useSelector((s: IGlobalStore) => s.cart);
+  const dispatch = useDispatch();
+
+  const sku: CartSku | null = useMemo(() => {
+    return productId && catalogue[productId]
+      ? { ...catalogue[productId], quantity: cart[productId] }
+      : null;
+  }, [productId, total]);
+
   const arr = [
     { path: "/", title: "Главная" },
     { path: "/catalogue", title: "Каталог" },
-    { path: "/product/" + testProd.art, title: testProd.art },
+    { path: "/product/" + productId, title: productId + "" },
   ];
 
+  const handleEmit = (action: string, value: number) => {
+    dispatch({ type: action, payload: productId, quantity: value });
+  };
+
   return (
-    <div>
-      <LayoutHOC
-        main={<ProductComp product={testProd} />}
-        breadcrumbs={<BreadCrumbs links={arr} />}
-      />
-    </div>
+    <LayoutHOC
+      main={<ProductComp sku={sku} emit={handleEmit} />}
+      breadcrumbs={<BreadCrumbs links={arr} />}
+    />
   );
 };

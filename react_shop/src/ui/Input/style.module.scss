@@ -42,10 +42,6 @@
   &:hover {
     border-color: $col-yellow-2;
   }
-  &:focus,
-  &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-  }
 
   &Box {
     position: relative;

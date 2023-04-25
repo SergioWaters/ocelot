@@ -1,12 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BreadCrumbs, CatalogueComp } from "../../components";
+import { BreadCrumbs } from "../../components";
 import { LayoutHOC } from "../../hoc";
 
 export const HomePage = () => {
-  const arr = [{ path: "/", title: "Главная" }];
+  const arr = [
+    { path: "/", title: "Главная" },
+    { path: "/cart", title: "Корзина" },
+    { path: "/product/184604049097548", title: "Страница товара" },
+    { path: "/catalogue", title: "Каталог" },
+    { path: "*", title: "404" },
+  ];
+
   const list = (
-    <div className="container">
+    <main className="container">
+      <h2>Главная</h2>
       <ul>
         <li>
           <Link to={"/"}>Home</Link>
@@ -24,11 +32,7 @@ export const HomePage = () => {
           <Link to={"*"}>404</Link>
         </li>
       </ul>
-    </div>
+    </main>
   );
-  return (
-    <div>
-      <LayoutHOC main={list} breadcrumbs={<BreadCrumbs links={arr} />} />
-    </div>
-  );
+  return <LayoutHOC main={list} breadcrumbs={<BreadCrumbs links={arr} />} />;
 };

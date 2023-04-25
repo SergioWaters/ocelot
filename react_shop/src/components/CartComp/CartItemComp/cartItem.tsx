@@ -1,31 +1,31 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import styles from "./style.module.scss";
 import { Link } from "react-router-dom";
 import { Button } from "../../../ui";
+import { CartSku } from "../";
+import {
+  CART_ADD,
+  CART_DEL,
+  CART_REM,
+  CART_SET_QUANTITY,
+} from "../../../store";
+
+export interface HandlerProps {
+  type: string;
+  payload: string;
+  quantity?: number;
+}
 
 interface props {
-  sku: sku;
+  sku: CartSku;
+  toCart: (p: HandlerProps) => void;
 }
 
-interface sku {
-  info: string;
-  measureUnits: string;
-  unitsCount: number;
-  art: string;
-  manufacturer: string;
-  brand: string;
-  images: Array<string>;
-  price: number;
-  pack: number;
-  categories: Array<string>;
-  description?: string;
-}
-
-export const CartItemComp: FC<props> = ({ sku }) => {
-  const [count, setCount] = useState(1);
-  const quantityChange = (num: number) => {
-    if (num < 1) return setCount(0);
-    setCount(num);
+export const CartItemComp: FC<props> = ({ sku, toCart }) => {
+  const quantityChange = (type: string, num?: number) => {
+    !!num
+      ? toCart({ type, payload: sku.art, quantity: num })
+      : toCart({ type, payload: sku.art });
   };
 
   return (
@@ -90,24 +90,28 @@ export const CartItemComp: FC<props> = ({ sku }) => {
           </Link>
           <p>{sku.description}</p>
         </div>
-
         <ul className={styles.pref}>
           <li>
             <div className={styles.quantity}>
-              <button onClick={() => quantityChange(count - 1)}>-</button>
+              <button onClick={() => quantityChange(CART_REM)}>-</button>
               <input
                 type="text"
-                value={count}
-                onChange={(e) => quantityChange(+e.target.value)}
+                value={sku.quantity}
+                onChange={(e) =>
+                  quantityChange(CART_SET_QUANTITY, +e.target.value)
+                }
               />
-              <button onClick={() => quantityChange(count + 1)}>+</button>
+              <button onClick={() => quantityChange(CART_ADD)}>+</button>
             </div>
           </li>
           <li>
             <span className={styles.total}>{sku.price}&nbsp;₸</span>
           </li>
           <li>
-            <Button iconUrl="./src/assets/icons/bin.svg" />
+            <Button
+              iconUrl="./src/assets/icons/bin.svg"
+              onClick={() => quantityChange(CART_DEL)}
+            />
           </li>
         </ul>
       </div>

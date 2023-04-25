@@ -1,10 +1,5 @@
 @import "../../styles/palette";
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
 .catalogue {
   color: $col-blue-1;
 
@@ -19,47 +14,6 @@
       font-weight: 500;
       text-transform: uppercase;
       color: $col-black-1;
-    }
-
-    & .sort {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 5px;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 22px;
-
-      &__heading {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 22px;
-        color: $col-black-1;
-      }
-
-      &__select {
-        border: none;
-        outline: transparent;
-
-        & option {
-          color: $col-blue-1;
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 22px;
-        }
-      }
-
-      &__button {
-        background-color: transparent;
-        border: none;
-        padding: 0;
-        margin: 0;
-        width: 10px;
-        height: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
     }
   }
 
@@ -77,11 +31,15 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: #ffffff;
+      background-color: #ffffff;
       box-shadow: 0px 15px 70px -11px #2b1c010a;
       border-radius: 10px;
       transition: all 0.5s;
       cursor: pointer;
+
+      &.picked {
+        background-color: $col-yellow-1;
+      }
 
       &:hover {
         box-shadow: 0px 0px 70px -11px #2b1c0155;
@@ -93,14 +51,36 @@
   &__inner {
     display: flex;
   }
+  &__wrapper {
+    flex: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__list {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  &__error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+  }
 
   &__aside {
     display: flex;
     gap: 40px;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    padding: 20px 100px 0 0;
+    justify-content: flex-start;
+    padding: 20px 80px 0 0;
 
     & .categories {
       flex-direction: column;
@@ -127,99 +107,11 @@
           pointer-events: none;
           opacity: 0.3;
         }
+
+        &.picked_aside {
+          color: $col-yellow-1;
+        }
       }
     }
-
-    & .filter {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      &__btns {
-        display: flex;
-        gap: 10px;
-      }
-
-      &__block {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-
-        & .checkboxes {
-          display: flex;
-          gap: 5px;
-          flex-direction: column;
-        }
-        & .label {
-          display: flex;
-          gap: 10px;
-          cursor: pointer;
-        }
-        & .checkbox {
-          cursor: pointer;
-        }
-      }
-
-      & h5 {
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 500;
-        color: $col-black-1;
-      }
-
-      & h4 {
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 500;
-        text-transform: uppercase;
-        color: $col-black-1;
-      }
-    }
-
-    & .price {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-
-      & h5 {
-        font-size: 14px;
-        line-height: 21px;
-        font-weight: 300;
-
-        &::after {
-          content: "₸";
-          color: $col-black-1;
-          font-weight: 500;
-          margin-left: 5px;
-        }
-      }
-      &__inner {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-      }
-      & input {
-        padding: 4px 14px;
-        width: 105px;
-        height: 23px;
-        background: linear-gradient(
-          90deg,
-          rgba(255, 198, 80, 0.3) 0%,
-          rgba(254, 202, 110, 0.3) 97.25%
-        );
-        border-radius: 1000px;
-        border: none;
-      }
-    }
-  }
-
-  &__list {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
-    flex: 1px;
   }
 }

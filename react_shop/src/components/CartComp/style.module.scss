@@ -31,5 +31,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    & .total {
+      font-size: 30px;
+      line-height: 39px;
+      font-weight: 700;
+      text-align: center;
+      color: $col-black-1;
+    }
   }
 }

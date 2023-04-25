@@ -1,10 +1,30 @@
 import { Link } from "react-router-dom";
 import { Button, Input } from "../../ui";
 import styles from "./style.module.scss";
+import { useSelector } from "react-redux";
+import { IGlobalStore } from "../../types";
+import { useMemo } from "react";
 
 export const HeaderComp = () => {
+  const { cart, total } = useSelector((s: IGlobalStore) => s.cart);
+  const { catalogue } = useSelector((s: IGlobalStore) => s.catalogue);
+
+  const counts = useMemo(() => {
+    const c = {
+      total: 0,
+      quantity: 0,
+    };
+
+    Object.entries(cart).forEach(([k, v]) => {
+      c.total = c.total + catalogue[k].price * v;
+      c.quantity = c.quantity + v;
+    });
+
+    return c || {};
+  }, [Object.keys(cart).length, total]);
+
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <div className={`${styles.header__upper} container`}>
         <ul>
           <li>
@@ -150,13 +170,14 @@ export const HeaderComp = () => {
                   </a>
                 </li>
               </ul>
-              <img
-                width="70"
-                height="92"
-                className={styles.callcenter__img}
-                src="/src/assets/call-center.png"
-                alt="call-center"
-              />
+              <picture className={styles.callcenter__img}>
+                <img
+                  height="92"
+                  className={styles.callcenter__img}
+                  src="https://s3-alpha-sig.figma.com/img/d549/6d72/4d4b38617cf18c0b14a9c8a5811c2ad3?Expires=1682899200&Signature=XTKnn~clo1nyj67dDzBjzPFEHhVIsnJG30eBkWItcrNGM3CvD4XD3LtbMCdseubhfJkuKAEXUcbbMtj3uM0Rv~VF69F8aiGLy-xpKdcmDarqsT~bQqHLJivueR8p9TDOkg04-e9idQQLo0gEsyGoQ1nGSgoP1PwUfsU~U76cOkFEUXeFo0ZLXrxRdQTeu8HRuy639LG~9eaRcKwEYvrCPQYiDAulShC0c1522COWYGnAZrILRzaj-I7VBPYPcCGXgY-sgYPRWAn-FzJTHHUbJnvOaWyDSPF2Raf6lw8-SgURmCz8pVUQwMnMwn9N-p0jlrmMHkLeTrJ8p0R5L-WF-A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                  alt="call-center"
+                />
+              </picture>
             </div>
             <Button
               className={styles.divider}
@@ -166,7 +187,7 @@ export const HeaderComp = () => {
             <div className={styles.cart_box}>
               <div className={styles.cart}>
                 <Link to={"/cart"}>
-                  <span className={styles.cart__badge}>3</span>
+                  <span className={styles.cart__badge}>{counts.quantity}</span>
                   <svg
                     width="46"
                     height="46"
@@ -182,12 +203,14 @@ export const HeaderComp = () => {
               </div>
               <ul className={styles.cart__list}>
                 <li className={styles.cart__title}>Корзина</li>
-                <li className={styles.cart__total}>12&nbsp;478&nbsp;&#8376;</li>
+                <li className={styles.cart__total}>
+                  {Number(counts.total).toFixed(2)}&nbsp;&#8376;
+                </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };

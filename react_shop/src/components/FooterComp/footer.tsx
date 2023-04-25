@@ -4,7 +4,7 @@ import styles from "./style.module.scss";
 
 export const FooterComp = () => {
   return (
-    <div className={styles.footer}>
+    <footer className={styles.footer}>
       <div className={styles.footer__inner + " container"}>
         <div className={styles.about}>
           <svg
@@ -247,6 +247,6 @@ export const FooterComp = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };

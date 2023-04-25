@@ -4,11 +4,11 @@ import { FC } from "react";
 
 interface link {
   path: string;
-  title: string;
+  title: string | undefined;
 }
 
 interface P {
-  links: link[];
+  links: link[] | [];
 }
 
 export const BreadCrumbs: FC<P> = ({ links }) => {

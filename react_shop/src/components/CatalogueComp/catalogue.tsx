@@ -1,105 +1,212 @@
 import styles from "./style.module.scss";
-import { Button, Input } from "../../ui";
-import { CatItemComp, SortComp } from "./";
+import { CatItemComp, SortComp, FilterComp, IForm, PaginationComp } from "./";
+import { Sku } from "../../types";
+import { FC, useEffect, useMemo, useState } from "react";
 
-export const CatalogueComp = () => {
-  const categoriesArr: Array<string> = [
-    "Уход за телом",
-    "Уход за руками",
-    "Уход за ногами",
-    "Уход за лицом",
-    "Уход за волосами",
-    "Средства для загара",
-    "Средства для бритья",
-    "Подарочные наборы",
-    "Гигиеническая продукция",
-    "Гигиена полости рта",
-    "Бумажная продукция",
-  ];
-  const sortArr = ["Подешевле", "Подороже", "Алфавит А-Я", "Алфавит Я-А"];
-  const manArr = [
-    "Производитель",
-    "Производитель",
-    "Производитель",
-    "Производитель",
-  ];
-  const handleEmit = (str: string) => {
-    console.log(str);
-    return str;
+interface props {
+  catalogueArr: Sku[];
+  categoriesArr: string[];
+  toCart: FunctionStringCallback;
+}
+
+const defaultForm = {
+  manufacturers: {},
+  price_min: "",
+  price_max: "",
+};
+
+const sortArr = ["Подешевле", "Подороже", "Алфавит А-Я", "Алфавит Я-А"];
+
+export const CatalogueComp: FC<props> = ({
+  catalogueArr,
+  categoriesArr,
+  toCart,
+}) => {
+  const [perPage] = useState(6);
+  const [form, setForm] = useState<IForm>(defaultForm);
+  const [error, setError] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  const [currPage, setCurrPage] = useState(1);
+  const [catalogue, setCatalogue] = useState(catalogueArr || []);
+  const [pickedCategory, setPickedCategory] = useState<string>("");
+  const pages = useMemo(
+    () => Math.ceil(catalogue.length / perPage),
+    [catalogue.length, perPage]
+  );
+
+  useEffect(() => {
+    if (catalogue.length === 0) return;
+    const obj: { [key: string]: boolean } = {};
+
+    let maxPrice = catalogue[0].price || 0;
+    let minPrice = catalogue[0].price || 0;
+
+    catalogue.forEach((sku) => {
+      obj[sku.manufacturer] = form.manufacturers[sku.manufacturer] || false;
+      if (sku.price > maxPrice) maxPrice = sku.price;
+      if (sku.price < minPrice) minPrice = sku.price;
+    });
+
+    setForm((curr) => {
+      return {
+        ...curr,
+        manufacturers: obj,
+        price_max: maxPrice.toString(),
+        price_min: minPrice.toString(),
+      };
+    });
+  }, [catalogue.length]);
+
+  const handleSortEmit = (key: string) => {
+    if (!key || key === sortBy) setSortBy(key);
+    switch (key) {
+      case sortArr[0]:
+        setCatalogue([
+          ...catalogue.sort((cur, next) => cur.price - next.price),
+        ]);
+        break;
+      case sortArr[1]:
+        setCatalogue([
+          ...catalogue.sort((cur, next) => next.price - cur.price),
+        ]);
+        break;
+      case sortArr[2]:
+        setCatalogue([
+          ...catalogue.sort((cur, next) => {
+            if (cur.brand.toLocaleLowerCase() > next.brand.toLocaleLowerCase())
+              return 1;
+            if (cur.brand.toLocaleLowerCase() < next.brand.toLocaleLowerCase())
+              return -1;
+            return 0;
+          }),
+        ]);
+        break;
+      case sortArr[3]:
+        setCatalogue([
+          ...catalogue.sort((cur, next) => {
+            if (cur.brand.toLocaleLowerCase() > next.brand.toLocaleLowerCase())
+              return -1;
+            if (cur.brand.toLocaleLowerCase() < next.brand.toLocaleLowerCase())
+              return 1;
+            return 0;
+          }),
+        ]);
+        break;
+      default:
+        setCatalogue(catalogueArr);
+    }
   };
-  const productsArr = [
-    {
-      info: "средство для мытья посуды Crystal",
-      measureUnits: "ml",
-      unitsCount: 450,
-      art: "4604049097548",
-      manufacturer: "Нэфис",
-      brand: "AOS",
-      images: ["./src/assets/aoc.png"],
-      price: 48.76,
-      pack: 0,
-      categories: ["средство для мытья посуды"],
-    },
-  ];
+
+  const formSubmitHandler = (form: IForm) => {
+    setError("Loading...");
+    let newCatal: Sku[] | [] = catalogueArr;
+    const checked = Object.entries(form.manufacturers).filter((m) => m[1]);
+
+    newCatal = newCatal.filter((i) => {
+      if (!!pickedCategory && !i.categories.includes(pickedCategory))
+        return false;
+      if (!!checked.length && !form.manufacturers[i.manufacturer]) return false;
+      if (!!form.price_min && i.price < +form.price_min) return false;
+      if (!!form.price_max && i.price > +form.price_max) return false;
+      return true;
+    });
+    if (!!sortBy) {
+      handleSortEmit(sortBy);
+    }
+    const timeout = setTimeout(() => {
+      !newCatal.length ? setError("Nothing is found") : setError("");
+
+      setCatalogue([...newCatal]);
+      setCurrPage(1);
+      clearTimeout(timeout);
+    }, 500);
+  };
+
+  const formResetHandler = () => {
+    formSubmitHandler(defaultForm);
+    setForm(defaultForm);
+    setError("");
+  };
+
+  const pickCategory = (category: string) => {
+    if (category === pickedCategory) {
+      setPickedCategory("");
+      setCatalogue(catalogueArr);
+    } else {
+      setPickedCategory(category);
+      setCatalogue(catalogueArr.filter((i) => i.categories.includes(category)));
+    }
+    // setForm(defaultForm);
+  };
+
+  const formOnChange = (f: IForm) => {
+    setForm((curr) => {
+      return { ...curr, ...f };
+    });
+  };
 
   return (
     <div className={styles.catalogue + " container"}>
       <div className={styles.heading}>
         <h1>Косметика и гигиена</h1>
-        <SortComp cbFn={handleEmit} optionsArr={sortArr} />
+        <SortComp cbFn={handleSortEmit} optionsArr={sortArr} />
       </div>
       <ul className={styles.categories}>
         {categoriesArr.map((c) => (
-          <li className={styles.categories__item} key={c}>
-            <p>{c.slice(0, c.indexOf(" "))}</p>
-            <p>{c.slice(c.indexOf(" "), c.length)}</p>
+          <li
+            onClick={() => pickCategory(c)}
+            className={`${styles.categories__item}
+              ${c === pickedCategory && styles.picked}
+            `}
+            key={c}>
+            {!c.includes(" ") ? (
+              <p>{c}</p>
+            ) : (
+              <>
+                <p>{c.slice(0, c.indexOf(" "))}</p>
+                <p>{c.slice(c.indexOf(" "), c.length)}</p>
+              </>
+            )}
           </li>
         ))}
       </ul>
       <div className={styles.catalogue__inner}>
         <div className={styles.catalogue__aside}>
-          <div className={styles.filter}>
-            <h4>ПОДБОР ПО ПАРАМЕТРАМ</h4>
-            <div className={styles.price}>
-              <h5>Цена</h5>
-              <div className={styles.price__inner}>
-                <input type="text" placeholder="0" />
-                -
-                <input type="text" placeholder="10000" />
-              </div>
-            </div>
-            <div className={styles.filter__block + " manufacturer"}>
-              <h5>Производитель</h5>
-              <Input
-                placeholder="Поиск..."
-                iconUrl="./src/assets/icons/search.svg"
-              />
-              <div className={styles.checkboxes}>
-                {manArr.map((m, indx) => (
-                  <label className={styles.label} key={m + indx}>
-                    <input type="checkbox" className={styles.checkbox} />
-                    {m}
-                  </label>
-                ))}
-              </div>
-            </div>
-            <div className={styles.filter__btns}>
-              <Button text="Показать" />
-              <Button iconUrl="./src/assets/icons/bin.svg" />
-            </div>
-          </div>
+          <FilterComp
+            formProp={form}
+            onSubmit={formSubmitHandler}
+            onReset={formResetHandler}
+            onChange={formOnChange}
+          />
           <ul className={styles.categories}>
             {categoriesArr.map((c) => (
-              <li className={styles.categories__item} key={c}>
+              <li
+                onClick={() => pickCategory(c)}
+                className={`${styles.categories__item} ${
+                  c === pickedCategory ? styles.picked_aside : ""
+                }
+                `}
+                key={c}>
                 {c}
               </li>
             ))}
           </ul>
         </div>
-        <div className={styles.catalogue__list}>
-          {productsArr.map((p) => (
-            <CatItemComp product={p} key={p.art} />
-          ))}
+        <div className={styles.catalogue__wrapper}>
+          <div className={styles.catalogue__list}>
+            {!!error && (
+              <div className={styles.catalogue__error}>
+                <h1>{error}</h1>
+              </div>
+            )}
+            {!!catalogue.length &&
+              catalogue
+                .slice((currPage - 1) * perPage, currPage * perPage)
+                .map((p) => <CatItemComp sku={p} key={p.art} emit={toCart} />)}
+          </div>
+          {!!catalogue.length && (
+            <PaginationComp onClick={(n) => setCurrPage(n)} pages={pages} />
+          )}
         </div>
       </div>
     </div>

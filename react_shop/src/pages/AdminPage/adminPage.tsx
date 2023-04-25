@@ -1,17 +1,19 @@
 import { FC } from "react";
 import { LayoutHOC } from "../../hoc";
-import { BreadCrumbs, CatalogueComp } from "../../components";
+import { BreadCrumbs, AdminComp } from "../../components";
 
 export const AdminPage: FC = () => {
   const arr = [
     { path: "/cart", title: "CartPage" },
     { path: "/product/*", title: "ProductPage" },
-    { path: "/catalogue", title: "catalogue" },
+    { path: "/catalogue", title: "CataloguePage" },
+    { path: "/admin", title: "AdminPage" },
   ];
+
   return (
     <div>
       <LayoutHOC
-        main={<CatalogueComp />}
+        main={<AdminComp />}
         breadcrumbs={<BreadCrumbs links={arr} />}
       />
     </div>

@@ -7,9 +7,9 @@ interface P {
 }
 export const LayoutHOC: FC<P> = ({ main, breadcrumbs }) => {
   return (
-    <div className={styles.layout}>
+    <main className={styles.layout + " main"}>
       <div className={styles.breadcrumbs}>{breadcrumbs}</div>
-      <div className={styles.main}>{main}</div>
-    </div>
+      <main className={styles.main}>{main}</main>
+    </main>
   );
 };
