@@ -3,14 +3,30 @@ import styles from "./style.module.scss";
 import { Sku } from "../../../types";
 
 interface IProps {
-  sku: Sku;
+  sku?: Sku;
   onSubmit: (arg0: Sku) => void;
   onDelete: (arg0: Sku) => void;
 }
 
+const defaultSku: Sku = {
+  info: "",
+  measureUnits: "",
+  unitsCount: 0,
+  art: "",
+  manufacturer: "",
+  brand: "",
+  images: [],
+  price: 0,
+  pack: 0,
+  categories: [],
+  description: "",
+  stock: 0,
+};
+
 export const AdminPanelForm: FC<IProps> = ({ sku, onSubmit, onDelete }) => {
   const [isAbleToEdit, setIsAbleToEdit] = useState(false);
-  const [form, setForm] = useState(sku);
+  const [form, setForm] = useState<Sku>(sku || defaultSku);
+
   const imagesInputRef = useRef<HTMLInputElement>(null);
   const categoriesInputRef = useRef<HTMLInputElement>(null);
 
@@ -28,6 +44,8 @@ export const AdminPanelForm: FC<IProps> = ({ sku, onSubmit, onDelete }) => {
     e.preventDefault();
     const val = e.target.value;
     const name = e.target.name;
+    if (!name) return;
+
     setForm((sku) => {
       return {
         ...sku,
@@ -38,6 +56,8 @@ export const AdminPanelForm: FC<IProps> = ({ sku, onSubmit, onDelete }) => {
 
   const formSubmitHandler = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(e.target);
+    if (!form.art) return;
     setIsAbleToEdit(false);
     onSubmit(form);
   };
@@ -47,6 +67,7 @@ export const AdminPanelForm: FC<IProps> = ({ sku, onSubmit, onDelete }) => {
     key: "categories" | "images",
     child: unknown
   ) => {
+    e.stopPropagation();
     e.preventDefault();
     setForm((curr) => {
       return {
@@ -77,17 +98,21 @@ export const AdminPanelForm: FC<IProps> = ({ sku, onSubmit, onDelete }) => {
           ${isAbleToEdit ? styles.editable : styles.non_editable}`}
       onChange={formChangeHandler}
       onSubmit={formSubmitHandler}>
-      <label>
-        <span> brand: </span>
-        <p>{form.brand}</p>
+      <div className={styles.part}>
+        <p>
+          <span> brand: </span>
+          {form.brand}
+        </p>
         <input type="text" name="brand" defaultValue={form.brand} required />
-      </label>
-      <label>
-        <span> article: </span>
-        <p>{form.art}</p>
+      </div>
+      <div className={styles.part}>
+        <p>
+          <span> article: </span>
+          {form.art}
+        </p>
         <input type="text" name="art" defaultValue={form.art} required />
-      </label>
-      <label>
+      </div>
+      <div className={styles.part}>
         <span> categories: </span>
         {form.categories.map((i) => (
           <p key={i}>{i}</p>
@@ -106,8 +131,8 @@ export const AdminPanelForm: FC<IProps> = ({ sku, onSubmit, onDelete }) => {
             Add category
           </button>
         </div>
-      </label>
-      <label>
+      </div>
+      <div className={styles.part}>
         <span> description: </span>
         <p>{form.description}</p>
         <input
@@ -116,55 +141,67 @@ export const AdminPanelForm: FC<IProps> = ({ sku, onSubmit, onDelete }) => {
           defaultValue={form.description}
           required
         />
-      </label>
-      <label>
+      </div>
+      <div className={styles.part}>
         <span> info: </span>
         <p>{form.info}</p>
         <input type="text" name="info" defaultValue={form.info} required />
-      </label>
-      <label>
-        <span> manufacturer: </span>
-        <p>{form.manufacturer}</p>
+      </div>
+      <div className={styles.part}>
+        <p>
+          <span> manufacturer: </span>
+          {form.manufacturer}
+        </p>
         <input
           type="text"
           name="manufacturer"
           defaultValue={form.manufacturer}
           required
         />
-      </label>
-      <label>
-        <span> measureUnits: </span>
-        <p>{form.measureUnits}</p>
+      </div>
+      <div className={styles.part}>
+        <p>
+          <span> measureUnits: </span>
+          {form.measureUnits}
+        </p>
         <input
           type="text"
           name="measureUnits"
           defaultValue={form.measureUnits}
           required
         />
-      </label>
-      <label>
-        <span> pack: </span>
-        <p>{form.pack}</p>
+      </div>
+      <div className={styles.part}>
+        <p>
+          <span> pack: </span>
+          {form.pack}
+        </p>
         <input type="text" name="pack" defaultValue={form.pack} required />
-      </label>
-      <label>
-        <span> price: </span>
-        <p>{form.price}</p>
+      </div>
+      <div className={styles.part}>
+        <p>
+          <span> price: </span>
+          {form.price}
+        </p>
         <input type="text" name="price" defaultValue={form.price} required />
-      </label>
-      <label>
-        <span> stock: </span>
-        <p>{form.stock}</p>
-        <input type="text" name="stock" defaultValue={form.stock} required />
-      </label>
-      <label>
+      </div>
+      <div className={styles.part}>
+        <p>
+          <span> stock: </span>
+          {form.stock}
+        </p>
+        <input type="text" name="stock" defaultValue={form.stock} />
+      </div>
+      <div className={styles.part}>
         <span> images: </span>
         {form.images.map((i) => (
           <div className={styles.images} key={i}>
-            <button onClick={(e) => removeArrayChild(e, "images", i)}>
+            <img src={i} height="100" />
+            <button
+              onClick={(e) => removeArrayChild(e, "images", i)}
+              className={styles.images_delete_btn}>
               &times;
             </button>
-            <img src={i} height="100" />
             <p>{i}</p>
           </div>
         ))}
@@ -182,14 +219,14 @@ export const AdminPanelForm: FC<IProps> = ({ sku, onSubmit, onDelete }) => {
             Add link
           </button>
         </div>
-      </label>
-      <label>
+      </div>
+      <div className={styles.part}>
         <span> thumbnail: </span>
         <p>{form.thumbnail}</p>
         {form.thumbnail && (
           <img src={form.thumbnail} height="100" width="100" />
         )}
-      </label>
+      </div>
       <div className={styles.buttons}>
         <button className={styles.edit_btn} onClick={editBtnClickHandler}>
           Edit

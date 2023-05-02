@@ -5,11 +5,12 @@ import { LayoutHOC } from "../../hoc";
 
 export const HomePage = () => {
   const arr = [
-    { path: "/", title: "Главная" },
     { path: "/cart", title: "Корзина" },
     { path: "/product/184604049097548", title: "Страница товара" },
     { path: "/catalogue", title: "Каталог" },
     { path: "*", title: "404" },
+    { path: "/admin", title: "AdminPage" },
+    { path: "/", title: "Главная" },
   ];
 
   const list = (
@@ -30,6 +31,9 @@ export const HomePage = () => {
         </li>
         <li>
           <Link to={"*"}>404</Link>
+        </li>
+        <li>
+          <Link to={"/admin"}>AdminPage</Link>
         </li>
       </ul>
     </main>

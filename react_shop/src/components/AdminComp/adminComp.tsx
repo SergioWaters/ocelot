@@ -1,8 +1,6 @@
-import React from "react";
 import styles from "./style.module.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { IGlobalStore, Sku } from "../../types";
-import { useDispatch } from "react-redux";
 import {
   CATAL_ADD,
   CATAL_DEL,
@@ -23,6 +21,8 @@ export const AdminComp = () => {
 
   return (
     <div className={styles.cards + " container"}>
+      <h1>Add new product</h1>
+      <AdminPanelForm onSubmit={onChangeSku} onDelete={onDeleteSku} />
       {Object.values(catalogue).map((sku: Sku) => (
         <AdminPanelForm
           sku={sku}

@@ -1,13 +1,13 @@
 export interface Sku {
-  info: string;
-  measureUnits: string;
-  unitsCount: number;
   art: string;
-  manufacturer: string;
+  info: string;
   brand: string;
-  images: Array<string>;
+  manufacturer: string;
   price: number;
   pack: number;
+  unitsCount: number;
+  measureUnits: string;
+  images: Array<string>;
   categories: Array<string>;
   description?: string;
   thumbnail?: string;

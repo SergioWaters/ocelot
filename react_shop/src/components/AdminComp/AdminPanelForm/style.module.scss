@@ -30,6 +30,9 @@
     gap: 5px;
 
     & button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: absolute;
       top: 0;
       left: 0;
@@ -52,17 +55,15 @@
     }
   }
 
-  & label {
+  & .part {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 10px;
     padding: 10px;
     min-height: 50px;
 
     & span {
-      display: block;
-      box-sizing: border-box;
       text-align: left;
       font-weight: bold;
     }
@@ -100,6 +101,7 @@
   }
 
   &.editable {
+    & .images_delete_btn,
     & .add_child_block,
     & .submit_btn,
     & input {
@@ -107,6 +109,7 @@
     }
   }
   &.non_editable {
+    & .images_delete_btn,
     & .add_child_block,
     & .submit_btn,
     & input {
